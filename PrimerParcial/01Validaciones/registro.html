@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Registrar Asistencia - CECyT 9</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+  <header> <a href="./detalle.html">Volver al Detalle del Taller</a> </header>
+
+  <main> 
+    <form class="formulario-registro" >
+      <h1>Formulario de Registro de Asistencia</h1>
+
+      <label for="nombre">Nombre Completo:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="boleta">Número de Boleta:</label>
+      <input type="text" id="boleta" name="boleta" required>
+
+      <button type="submit">Registrar Asistencia</button>
+    </form>
+  </main>
 
 </body>
 </html>
