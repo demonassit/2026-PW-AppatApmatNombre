@@ -39,7 +39,7 @@ if (typeof document !== 'undefined') {
         //tenemos que validar campo por campo
         for(const campo of Object.keys(patrones)){
             const input = document.getElementById(campo);
-            const spanError = document.getElementById('error-${campo}');
+            const spanError = document.getElementById(`error-${campo}`);
             const esValido = validarCampo(campo, input.value);
 
             input.classList.toggle('invalido', !esValido);
