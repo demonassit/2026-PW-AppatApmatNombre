@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 //necesitamos al modelo
 const usuariosModel = require('../Modelo/usuarios');
 
-const {validarCorreo, calidarBoleta, validarContrasena, validarBoleta} = require('../validaciones')
+const {validarCorreo, validarContrasena, validarBoleta} = require('../validaciones')
 
 //que pasa si el correo y la boleta se duplica
 function esDuplicado(error){
@@ -35,7 +35,7 @@ async function crearUsuario(req, res) {
     if(!nombre || !correo || !contrasena || !boleta){
         return res.status(400).json({error: 'nombre, correo, contraseña, y boleta son obligatorios, favor de verificar los datos'});
     }
-    if(!validarCorreo(correo)) return res.status(400).json({error: 'El correo not iene formato valido'});
+    if(!validarCorreo(correo)) return res.status(400).json({error: 'El correo no tiene formato valido'});
     if(!validarBoleta(boleta)) return res.status(400).json({error: 'La boleta debe tener 10 digitos'});
     if(!validarContrasena(contrasena)) return res.status(400).json({error: 'La contraseña debe tener al menos 8 caracteres'});
 
@@ -54,7 +54,7 @@ async function crearUsuario(req, res) {
 async function actualizarUsuario(req, res) {
     const {nombre, correo, rol} = req.body;
 
-    if(correo !== undefined && nombre !== undefined && rol !== undefined){
+    if(correo === undefined && nombre === undefined && rol === undefined){
         return res.status(400).json({error: 'Debe de ingresar alguno de los siguientes datos para actualizar: nombre, correo o rol'});
     }
     if(correo !== undefined && !validarCorreo(correo)){
@@ -64,9 +64,9 @@ async function actualizarUsuario(req, res) {
     try{
         const usuario = await usuariosModel.actualizar(req.params.id, {nombre, correo, rol});
         if(!usuario) return res.status(404).json({error: 'Usuario no encontrado'});
-        res.status(401).json(usuario);
+        res.json(usuario);
     }catch(error){
-        if(esDuplicado(error)) res.status(409).json({error: 'Ya existe un usuario con ese correo, ingresa uno diferente'});
+        if(esDuplicado(error)) return res.status(409).json({error: 'Ya existe un usuario con ese correo, ingresa uno diferente'});
         res.status(500).json({error: error.message});
     }
     

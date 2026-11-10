@@ -9,7 +9,7 @@ async function listar() {
 }
 
 //consultar por ID
-async function obtenerPorId() {
+async function obtenerPorId(id) {
     const [filas] = await pool.query(`SELECT ${COLUMNAS_PUBLICAS} FROM usuarios WHERE id = ?`, [id]);
     return filas[0];    
 }
@@ -34,8 +34,8 @@ async function actualizar(id, {nombre, correo, rol}) {
 }
 
 //eliminar
-async function eliminar() {
-    const [filas] = await pool.query(`DELETE FROM usuarios WHERE id = ?`, [id]);
+async function eliminar(id) {
+    const [info] = await pool.query(`DELETE FROM usuarios WHERE id = ?`, [id]);
     return info.affectedRows > 0;   
 }
 

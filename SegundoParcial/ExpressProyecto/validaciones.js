@@ -4,12 +4,14 @@
 
 //aqui va funcion de correo
 function validarCorreo(correo){
-
+    if (typeof correo !== 'string') return false;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo.trim());
 }
 
 //aqui va funcion de boleta
 function validarBoleta(boleta){
-
+    if (typeof boleta !== 'string') return false;
+    return /^\d{10}$/.test(boleta.trim());
 }
 
 function validarContrasena(contrasena){

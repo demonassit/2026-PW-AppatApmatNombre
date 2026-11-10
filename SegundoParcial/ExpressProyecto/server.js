@@ -1,4 +1,5 @@
 const express = require('express')
+const usuarios = require('./Controlador/usuarios_controlador');
 
 const app = express();
 
@@ -21,6 +22,13 @@ app.post('/eco', (req, res) => {
     }
     res.status(201).json({eco:texto})
 });
+
+//rutas del CRUD de usuarios (las consume /admin/usuarios del mini-proyecto-next)
+app.get('/api/usuarios', usuarios.listarUsuarios);
+app.get('/api/usuarios/:id', usuarios.obtenerUsuario);
+app.post('/api/usuarios', usuarios.crearUsuario);
+app.put('/api/usuarios/:id', usuarios.actualizarUsuario);
+app.delete('/api/usuarios/:id', usuarios.eliminarUsuario);
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto: ${PORT}`);
